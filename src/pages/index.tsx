@@ -1,7 +1,13 @@
+import { useRouter } from "next/router"
 import { useState } from "react"
 
 export default function Home() {
   const [username, setUsername] = useState('')
+  const router = useRouter()
+
+  function handleLogin() {
+    router.push('/blog')
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-[#DDDDDD]">
@@ -26,6 +32,7 @@ export default function Home() {
           <button
             className="w-[111px] h-[32px] bg-[#7695EC] text-white font-bold rounded-lg uppercase ml-auto hover:bg-[#5d7eda] transition-colors disabled:cursor-not-allowed disabled:opacity-50"
             disabled={username.trim().length === 0}
+            onClick={handleLogin}
           >
             Enter
           </button>
