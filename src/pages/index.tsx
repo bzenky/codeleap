@@ -5,13 +5,17 @@ export default function Home() {
   const router = useRouter()
   const username = usePostStore(state => state.username)
 
-  function handleLogin() {
+  function handleLogin(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
     router.push('/blog')
   }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-[#DDDDDD]">
-      <div className="max-w-[500px] w-[94%] p-6 bg-white border border-gray-[#CCCCCC] rounded-2xl">
+      <form
+        className="max-w-[500px] w-[94%] p-6 bg-white border border-gray-[#CCCCCC] rounded-2xl"
+        onSubmit={(event) => handleLogin(event)}
+      >
         <h1 className="text-[22px] font-bold mb-6">
           Welcome to CodeLeap network!
         </h1>
@@ -32,12 +36,11 @@ export default function Home() {
           <button
             className="w-[111px] h-[32px] bg-[#7695EC] text-white font-bold rounded-lg uppercase ml-auto hover:bg-[#5d7eda] transition-colors disabled:cursor-not-allowed disabled:opacity-50"
             disabled={username.trim().length === 0}
-            onClick={handleLogin}
           >
             Enter
           </button>
         </div>
-      </div>
+      </form>
     </main>
   )
 }
