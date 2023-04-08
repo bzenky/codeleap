@@ -1,7 +1,6 @@
+import { GetServerSideProps } from "next/types"
 import { useState } from "react"
 import { api } from "@/lib/axios"
-import { distanceToNow } from "@/utils/distanceToNow"
-import { GetServerSideProps, GetStaticProps } from "next/types"
 import { PostCard } from "@/components/PostCard"
 
 export interface PostProps {
@@ -81,7 +80,6 @@ export default function Blog({ posts }: BlogProps) {
           )
         })}
       </div>
-
     </main>
   )
 }

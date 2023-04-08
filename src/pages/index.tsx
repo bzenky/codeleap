@@ -1,9 +1,9 @@
+import { usePostStore } from "@/store/posts"
 import { useRouter } from "next/router"
-import { useState } from "react"
 
 export default function Home() {
-  const [username, setUsername] = useState('')
   const router = useRouter()
+  const username = usePostStore(state => state.username)
 
   function handleLogin() {
     router.push('/blog')
@@ -26,7 +26,7 @@ export default function Home() {
             id='username'
             placeholder='John Doe'
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => usePostStore.setState({ username: e.target.value })}
           />
 
           <button
