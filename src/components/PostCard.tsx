@@ -2,6 +2,8 @@ import { PostProps } from "@/pages/blog"
 import { usePostStore } from "@/store/posts"
 import { distanceToNow } from "@/utils/distanceToNow"
 import { PencilLine, Trash } from "@phosphor-icons/react"
+import * as Dialog from '@radix-ui/react-dialog'
+import { Modal } from "./Modal"
 
 interface PostCardProps {
   post: PostProps
@@ -12,7 +14,7 @@ export function PostCard({ post }: PostCardProps) {
   const username = usePostStore(state => state.username)
 
   return (
-    <div key={post.id}>
+    <div>
       <header className="flex items-center justify-between w-full  h-[70px] px-9 bg-[#7695EC] rounded-t-2xl">
         <h2 className="text-[22px] font-bold text-white">
           {post.title}
@@ -20,13 +22,21 @@ export function PostCard({ post }: PostCardProps) {
 
         {username === post.username && (
           <div className="flex gap-6">
-            <button>
-              <Trash size={24} color="#ffffff" />
-            </button>
+            <Modal type="remove" postId={String(post.id)}>
+              <Trash
+                size={24}
+                color="#ffffff"
+                className="cursor-pointer"
+              />
+            </Modal>
 
-            <button>
-              <PencilLine size={24} color="#ffffff" />
-            </button>
+            <Modal type="edit" postId={String(post.id)}>
+              <PencilLine
+                size={24}
+                color="#ffffff"
+                className="cursor-pointer"
+              />
+            </Modal>
           </div>
         )}
       </header>
