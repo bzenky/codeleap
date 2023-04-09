@@ -93,7 +93,6 @@ export default function Blog() {
             <div className="flex flex-col gap-6 max-w-[800px] w-[100%] md:w-[94%] min-h-screen p-4 md:p-6 bg-white">
               <CreatePostCard />
 
-              <Toast />
 
               {posts?.results.map(post => {
                 return (
@@ -119,6 +118,8 @@ export default function Blog() {
                 disabledLinkClassName="opacity-50 cursor-not-allowed"
               />
             </div>
+
+            <Toast />
           </>
         )
       }
