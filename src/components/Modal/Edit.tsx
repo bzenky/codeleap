@@ -1,25 +1,34 @@
 import { api } from '@/lib/axios'
+import { usePostStore } from '@/store/posts'
 import { SpinnerGap } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useState } from 'react'
 
 interface EditProps {
   postId: string
+  onOpenChange: (value: boolean) => void
 }
 
-export function Edit({ postId }: EditProps) {
+export function Edit({ postId, onOpenChange }: EditProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const fetchPosts = usePostStore(state => state.fetchPosts)
 
   async function updatePost() {
     setIsLoading(true)
     try {
-      // await api
+      await api.patch(`/${postId}/`, {
+        title,
+        content
+      })
+
+      await fetchPosts()
     } catch (error) {
       console.log(error)
     } finally {
       setIsLoading(false)
+      onOpenChange(false)
     }
   }
 
@@ -66,7 +75,9 @@ export function Edit({ postId }: EditProps) {
         </Dialog.Close>
 
         <button
-          className="flex justify-center items-center bg-[#47B960] text-white  max-w-[120px] w-full h-[32px] items-center justify-center rounded-lg px-3 font-bold focus:outline-none"
+          className="flex justify-center items-center bg-[#47B960] text-white  max-w-[120px] w-full h-[32px] items-center justify-center rounded-lg px-3 font-bold focus:outline-none disabled:opacity-50"
+          disabled={title.trim().length === 0 || content.trim().length === 0}
+          onClick={updatePost}
         >
           {isLoading
             ? <SpinnerGap size={24} className="animate-spin" color="#ffffff" />

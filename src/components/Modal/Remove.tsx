@@ -1,23 +1,28 @@
 import { api } from '@/lib/axios'
+import { usePostStore } from '@/store/posts'
 import { SpinnerGap } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useState } from 'react'
 
 interface RemoveProps {
   postId: string
+  onOpenChange: (value: boolean) => void
 }
 
-export function Remove({ postId }: RemoveProps) {
+export function Remove({ postId, onOpenChange }: RemoveProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const fetchPosts = usePostStore(state => state.fetchPosts)
 
   async function removePost() {
     setIsLoading(true)
     try {
-      await api.delete(`/${postId}`)
+      await api.delete(`/${postId}/`)
+      await fetchPosts()
     } catch (error) {
       console.log(error)
     } finally {
       setIsLoading(false)
+      onOpenChange(false)
     }
   }
 

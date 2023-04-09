@@ -23,20 +23,11 @@ export interface BlogProps {
 export default function Blog() {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [posts, setPosts] = useState<BlogProps>()
   const [isLoading, setIsLoading] = useState(true)
   const [isFetching, setIsFetching] = useState(false)
+  const fetchPosts = usePostStore(state => state.fetchPosts)
   const username = usePostStore(state => state.username)
-
-  async function fetchPosts() {
-    try {
-      await api.get<BlogProps>('')
-        .then(response => response.data)
-        .then(data => setPosts(data))
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const posts = usePostStore(state => state.posts)
 
   async function handleCreatePost(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
