@@ -14,7 +14,7 @@ export function PostCard({ post }: PostCardProps) {
 
   return (
     <div>
-      <header className="flex items-center justify-between w-full h-[50px] md:h-[70px] px-4 md:px-9 bg-[#7695EC] rounded-t-2xl">
+      <header className="flex items-center justify-between w-full h-[50px] md:h-[70px] px-4 md:px-6 bg-[#7695EC] rounded-t-2xl">
         <h2 className="text-lg md:text-[22px] truncate font-bold text-white">
           {post.title}
         </h2>
