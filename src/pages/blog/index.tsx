@@ -80,17 +80,17 @@ export default function Blog() {
         ? <Loading />
         : (
           <>
-            <header className="flex items-center justify-between max-w-[800px] w-[94%] h-20 px-9 bg-[#7695EC]">
-              <h1 className="text-[22px] font-bold text-white">
+            <header className="flex items-center justify-between max-w-[800px] w-[100%] md:w-[94%] h-[60px] md:h-20 px-4 md:px-9 bg-[#7695EC]">
+              <h1 className="text-xl md:text-[22px] font-bold text-white">
                 CodeLeap Network
               </h1>
 
               <button title="Logout" onClick={logout}>
-                <SignOut size={24} color="#ffffff" />
+                <SignOut size={20} color="#ffffff" weight="bold" />
               </button>
             </header>
 
-            <div className="flex flex-col gap-6 max-w-[800px] w-[94%] min-h-screen p-6 bg-white">
+            <div className="flex flex-col gap-6 max-w-[800px] w-[100%] md:w-[94%] min-h-screen p-4 md:p-6 bg-white">
               <CreatePostCard />
 
               <Toast />

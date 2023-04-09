@@ -38,14 +38,14 @@ export function Remove({ postId, onOpenChange }: RemoveProps) {
   return (
     <>
       <header>
-        <Dialog.Title className="text-[22px] font-bold">
+        <Dialog.Title className="text-lg md:text-[22px] font-bold">
           Are you sure you want to delete this item?
         </Dialog.Title>
       </header>
 
       <footer className="mt-[25px] flex gap-4 justify-end">
         <Dialog.Close asChild>
-          <button className="bg-white max-w-[120px] w-full  h-[32px] items-center justify-center rounded-lg px-3 font-bold  focus:outline-none border border-[#999999]">
+          <button className="bg-white max-w-[120px] w-full h-[32px] items-center justify-center rounded-lg px-3 font-bold  focus:outline-none border border-[#999999]">
             Cancel
           </button>
         </Dialog.Close>

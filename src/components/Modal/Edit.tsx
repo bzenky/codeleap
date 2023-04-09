@@ -43,7 +43,7 @@ export function Edit({ postId, onOpenChange }: EditProps) {
   return (
     <>
       <header>
-        <Dialog.Title className="text-[22px] font-bold mb-6">
+        <Dialog.Title className="text-lg md:text-[22px] font-bold mb-6">
           Edit item
         </Dialog.Title>
       </header>

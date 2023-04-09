@@ -45,10 +45,10 @@ export function CreatePostCard() {
 
   return (
     <form
-      className="flex flex-col border border-[#999999] p-6 rounded-2xl"
+      className="flex flex-col border border-[#999999] p-3 md:p-6 rounded-2xl"
       onSubmit={(event) => handleCreatePost(event)}
     >
-      <h2 className="mb-6 font-bold text-[22px]">
+      <h2 className="mb-6 font-bold text-lg md:text-[22px]">
         What's on your mind ?
       </h2>
 
