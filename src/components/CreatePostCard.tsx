@@ -9,6 +9,7 @@ export function CreatePostCard() {
   const [isFetching, setIsFetching] = useState(false)
   const fetchPosts = usePostStore(state => state.fetchPosts)
   const username = usePostStore(state => state.username)
+  const toast = usePostStore(state => state.toast)
 
   async function handleCreatePost(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -27,9 +28,16 @@ export function CreatePostCard() {
           fetchPosts()
         })
 
+      toast({
+        description: 'Post created successfully',
+        type: 'success'
+      })
       fetchPosts()
     } catch (error) {
-      console.log(error)
+      toast({
+        description: 'Ops, something went wrong.',
+        type: 'error'
+      })
     } finally {
       setIsFetching(false)
     }

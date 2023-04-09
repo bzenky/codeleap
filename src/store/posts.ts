@@ -16,10 +16,18 @@ export interface BlogProps {
   results: PostProps[]
 }
 
+interface ToastProps {
+  type?: 'success' | 'error' | 'warning' | 'info' | 'default'
+  description: string
+}
+
 export interface PostState {
-  username: string
   fetchPosts: () => Promise<void>
+  openToast: boolean
   posts: BlogProps | null
+  username: string
+  toastData: ToastProps
+  toast: ({ type, description }: ToastProps) => void
 }
 
 export const usePostStore =
@@ -33,6 +41,20 @@ export const usePostStore =
         console.log(error)
       }
     },
-    username: '',
+    openToast: false,
+    toast: ({ type, description }) => {
+      set({
+        openToast: true,
+        toastData: {
+          type,
+          description,
+        },
+      })
+    },
+    toastData: {
+      type: 'default',
+      description: '',
+    },
     posts: null,
+    username: '',
   }))

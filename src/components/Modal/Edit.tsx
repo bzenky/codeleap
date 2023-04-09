@@ -14,6 +14,7 @@ export function Edit({ postId, onOpenChange }: EditProps) {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const fetchPosts = usePostStore(state => state.fetchPosts)
+  const toast = usePostStore(state => state.toast)
 
   async function updatePost() {
     setIsLoading(true)
@@ -24,8 +25,15 @@ export function Edit({ postId, onOpenChange }: EditProps) {
       })
 
       await fetchPosts()
+      toast({
+        description: 'Post updated successfully',
+        type: 'success'
+      })
     } catch (error) {
-      console.log(error)
+      toast({
+        description: 'Ops, something went wrong.',
+        type: 'error'
+      })
     } finally {
       setIsLoading(false)
       onOpenChange(false)

@@ -2,7 +2,6 @@ import { PostProps } from "@/pages/blog"
 import { usePostStore } from "@/store/posts"
 import { distanceToNow } from "@/utils/distanceToNow"
 import { PencilLine, Trash } from "@phosphor-icons/react"
-import * as Dialog from '@radix-ui/react-dialog'
 import { Modal } from "./Modal"
 
 interface PostCardProps {

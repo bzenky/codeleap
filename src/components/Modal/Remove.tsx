@@ -12,14 +12,23 @@ interface RemoveProps {
 export function Remove({ postId, onOpenChange }: RemoveProps) {
   const [isLoading, setIsLoading] = useState(false)
   const fetchPosts = usePostStore(state => state.fetchPosts)
+  const toast = usePostStore(state => state.toast)
 
   async function removePost() {
     setIsLoading(true)
     try {
       await api.delete(`/${postId}/`)
       await fetchPosts()
+
+      toast({
+        description: 'Post deleted successfully',
+        type: 'success'
+      })
     } catch (error) {
-      console.log(error)
+      toast({
+        description: 'Ops, something went wrong.',
+        type: 'error'
+      })
     } finally {
       setIsLoading(false)
       onOpenChange(false)

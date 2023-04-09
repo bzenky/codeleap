@@ -3,6 +3,7 @@ import ReactPaginate from "react-paginate"
 import { PostCard } from "@/components/PostCard"
 import { Loading } from "@/components/Loading"
 import { CreatePostCard } from "@/components/CreatePostCard"
+import { Toast } from "@/components/Toast"
 import { usePostStore } from "@/store/posts"
 import { api } from "@/lib/axios"
 
@@ -74,6 +75,8 @@ export default function Blog() {
 
             <div className="flex flex-col gap-6 max-w-[800px] w-[94%] min-h-screen p-6 bg-white">
               <CreatePostCard />
+
+              <Toast />
 
               {posts?.results.map(post => {
                 return (
