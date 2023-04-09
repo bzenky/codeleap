@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
+import ReactPaginate from "react-paginate"
 import { PostCard } from "@/components/PostCard"
 import { Loading } from "@/components/Loading"
-import { usePostStore } from "@/store/posts"
 import { CreatePostCard } from "@/components/CreatePostCard"
+import { usePostStore } from "@/store/posts"
+import { api } from "@/lib/axios"
 
 export interface PostProps {
   id: number
@@ -19,10 +21,37 @@ export interface BlogProps {
   results: PostProps[]
 }
 
+interface PaginationProps {
+  selected: number
+}
+
 export default function Blog() {
   const [isLoading, setIsLoading] = useState(true)
   const fetchPosts = usePostStore(state => state.fetchPosts)
   const posts = usePostStore(state => state.posts)
+  const totalPosts = posts?.count || 0
+  const pages = Math.ceil(totalPosts / 10)
+  const [pageOffset, setPageOffset] = useState(0)
+
+  async function handlePagination(event: PaginationProps) {
+    setPageOffset(event.selected)
+    const offset = event.selected * 10
+    const linkQuery = event.selected === 0
+      ? ''
+      : `?limit=10&offset=${offset}`
+
+    setIsLoading(true)
+
+    try {
+      await api.get<BlogProps>(`${linkQuery}`)
+        .then(response => response.data)
+        .then(data => usePostStore.setState({ posts: data }))
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   useEffect(() => {
     setIsLoading(true)
@@ -54,6 +83,21 @@ export default function Blog() {
                   />
                 )
               })}
+
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel=">"
+                onPageChange={handlePagination}
+                pageRangeDisplayed={3}
+                pageCount={pages}
+                previousLabel="<"
+                renderOnZeroPageCount={null}
+                forcePage={pageOffset}
+                activeLinkClassName="rounded-md px-2 py-1 border border-[#a9a9a9] rounded-full"
+                className="flex justify-center gap-2 bg-[#7695EC] py-4 px-1 text-white"
+                disabledClassName="opacity-50 cursor-not-allowed"
+                disabledLinkClassName="opacity-50 cursor-not-allowed"
+              />
             </div>
           </>
         )
