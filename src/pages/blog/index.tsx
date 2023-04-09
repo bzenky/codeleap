@@ -1,3 +1,4 @@
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import ReactPaginate from "react-paginate"
 import { PostCard } from "@/components/PostCard"
@@ -28,11 +29,13 @@ interface PaginationProps {
 
 export default function Blog() {
   const [isLoading, setIsLoading] = useState(true)
+  const [pageOffset, setPageOffset] = useState(0)
   const fetchPosts = usePostStore(state => state.fetchPosts)
   const posts = usePostStore(state => state.posts)
+  const username = usePostStore(state => state.username)
+  const router = useRouter()
   const totalPosts = posts?.count || 0
   const pages = Math.ceil(totalPosts / 10)
-  const [pageOffset, setPageOffset] = useState(0)
 
   async function handlePagination(event: PaginationProps) {
     setPageOffset(event.selected)
@@ -55,10 +58,14 @@ export default function Blog() {
   }
 
   useEffect(() => {
-    setIsLoading(true)
+    if (!username) {
+      router.push('/')
+    } else {
+      setIsLoading(true)
 
-    fetchPosts()
-      .then(() => setIsLoading(false))
+      fetchPosts()
+        .then(() => setIsLoading(false))
+    }
   }, [])
 
   return (
