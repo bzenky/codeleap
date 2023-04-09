@@ -7,6 +7,7 @@ import { CreatePostCard } from "@/components/CreatePostCard"
 import { Toast } from "@/components/Toast"
 import { usePostStore } from "@/store/posts"
 import { api } from "@/lib/axios"
+import { SignOut } from "@phosphor-icons/react"
 
 export interface PostProps {
   id: number
@@ -57,6 +58,11 @@ export default function Blog() {
     }
   }
 
+  function logout() {
+    usePostStore.setState({ username: '' })
+    router.push('/')
+  }
+
   useEffect(() => {
     if (!username) {
       router.push('/')
@@ -74,10 +80,14 @@ export default function Blog() {
         ? <Loading />
         : (
           <>
-            <header className="flex items-center max-w-[800px] w-[94%] h-20 px-9 bg-[#7695EC]">
+            <header className="flex items-center justify-between max-w-[800px] w-[94%] h-20 px-9 bg-[#7695EC]">
               <h1 className="text-[22px] font-bold text-white">
                 CodeLeap Network
               </h1>
+
+              <button title="Logout" onClick={logout}>
+                <SignOut size={24} color="#ffffff" />
+              </button>
             </header>
 
             <div className="flex flex-col gap-6 max-w-[800px] w-[94%] min-h-screen p-6 bg-white">
