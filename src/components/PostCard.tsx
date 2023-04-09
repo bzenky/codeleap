@@ -51,7 +51,7 @@ export function PostCard({ post }: PostCardProps) {
           </span>
         </div>
 
-        <p className="text-lg">
+        <p className="text-lg break-words">
           {post.content}
         </p>
       </div>
